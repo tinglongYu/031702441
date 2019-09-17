@@ -2,7 +2,7 @@ package addressbook;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 public class Citysearch {
-    public static final String[] MyProvince = {"北京","天津","上海","重庆","河北","山西","辽宁","吉林","黑龙江","江苏","浙江","安徽","福建","江西","山东","河南","湖北","湖南","广东","海南","四川","贵州","云南","陕西","甘肃","青海","台湾","内蒙古自治区","广西壮族自治区","西藏自治区","宁夏回族自治区","新疆维吾尔自治区","香港特别行政区","澳门特别行政区"};
+    public static final String[] MyProvince = {"北京","天津","上海","重庆","河北","山西","辽宁","吉林","黑龙江","江苏","浙江","安徽","福建","江西","山东","河南","湖北","湖南","广东","海南","四川","贵州","云南","陕西","甘肃","青海","内蒙古自治区","广西壮族自治区","西藏自治区","宁夏回族自治区","新疆维吾尔自治区","内蒙古","广西","西藏","宁夏","新疆"};
     public static final String[] MyCity = {
 
             "阿坝","阿拉善","阿里","安康","安庆","鞍山","安顺","安阳","澳门","B","北京","白银",
@@ -87,6 +87,7 @@ public class Citysearch {
         }
         return -1;
     }
+    
     /*查找地址中的地级市信息*/
     private static int MatchCity(String str){
         for(int i=0;i<MyCity.length;i++){
@@ -95,6 +96,7 @@ public class Citysearch {
         }
         return -1;
     }
+    
     /*查找三级地址关键词*/
     private static int MatchThirdaddress(String str){
         for(int i=0;i<thirdadress.length;i++){
@@ -103,6 +105,7 @@ public class Citysearch {
         }
         return -1;
     }
+    
     /*查找四级地址关键词*/
     private static int MatchForthaddress(String str){
         for(int i=0;i<forthadress.length;i++){
@@ -111,6 +114,7 @@ public class Citysearch {
         }
         return -1;
     }
+    
     /*查找五级地址关键词*/
     private static int MatchFifthaddress(String str){
         for(int i=0;i<fifthadress.length;i++){
@@ -119,6 +123,7 @@ public class Citysearch {
         }
         return -1;
     }
+    
     /*将指定字符串划分出姓名手机号和五级地址*/
     private static String[] Fivelevel(String str){
         String NewAddress[] = new String[10];//用于存储划分出来的各项信息
@@ -207,6 +212,7 @@ public class Citysearch {
         NewAddress[6]=str;//剩下的字符串就是详细地址
         return NewAddress;
     }
+    
     /*字符串修复方法*/
     public static String[] Addressfix(String str){
         String NewAddress[];

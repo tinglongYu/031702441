@@ -2,7 +2,7 @@ package addressbook;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 public class Citysearch {
-    public static final String[] MyProvince = {"北京","天津","上海","重庆","河北","山西","辽宁","吉林","黑龙江","江苏","浙江","安徽","福建","江西","山东","河南","湖北","湖南","广东","海南","四川","贵州","云南","陕西","甘肃","青海","内蒙古自治区","广西壮族自治区","西藏自治区","宁夏回族自治区","新疆维吾尔自治区","内蒙古","广西","西藏","宁夏","新疆"};
+    public static final String[] MyProvince = {"内蒙古自治区","广西壮族自治区","西藏自治区","宁夏回族自治区","新疆维吾尔自治区","北京","天津","上海","重庆","河北","山西","辽宁","吉林","黑龙江","江苏","浙江","安徽","福建","江西","山东","河南","湖北","湖南","广东","海南","四川","贵州","云南","陕西","甘肃","青海","内蒙古","广西","西藏","宁夏","新疆"};
     public static final String[] MyCity = {
 
             "阿坝","阿拉善","阿里","安康","安庆","鞍山","安顺","安阳","澳门","B","北京","白银",
@@ -154,7 +154,7 @@ public class Citysearch {
         else {
         	NewAddress[2]=MyProvince[location];
             flag1=str.indexOf(MyProvince[location]);
-            if(location!=1 && location!=2 && location!=0 && location!=3){
+            if(location!=1 && location!=2 && location!=0 && location!=3&&location!=4 && location!=5 && location!=6 && location!=7&&location!=8){
                 NewAddress[2]=MyProvince[location]+"省";
                 if(str.substring(flag1,flag1+MyProvince[location].length()+1).equals(NewAddress[2])){
                     str=str.substring(flag1+MyProvince[location].length()+1,str.length());

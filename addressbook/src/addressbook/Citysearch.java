@@ -208,7 +208,9 @@ public class Citysearch {
                 str=str.substring(flag1+2,str.length());
             }
         }
-
+        if(str.indexOf('.')!=-1) {
+        	str=str.substring(0,str.length()-1);
+        }
         NewAddress[6]=str;//剩下的字符串就是详细地址
         return NewAddress;
     }

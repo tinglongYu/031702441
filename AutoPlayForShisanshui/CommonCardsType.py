@@ -123,6 +123,7 @@ def FindSantiao(Cardlist=[]):
                     list_temp.append(item)
             for j in itertools.combinations(list_temp, 3):
                 Santiao.append(list(j))
+            list_temp = []
     return Santiao
 
 

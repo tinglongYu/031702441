@@ -7,13 +7,7 @@ import flask
 
 server = flask.Flask(__name__)  # __name__代表当前的python文件。把当前的python文件当做一个服务启动
 
-json_data = {
-    "status": 0,
-    "data": {
-        "id": 1000,
-        "card": "$3 $4 $5 $6 $7 *6 &8 *8 *9 *10 #J #Q #K"
-    }
-}
+json_data = {'status': 0, 'data': {'id': 1000, 'card': '#3 $2 *5 #2 $4 $8 #K &K *A $3 &J #A *8'}}
 
 Sanpai_Weight_1 = [0, 0, 0, 0, 0, 289, 1158, 2895, 5791, 10135, 16217, 24325, 34751, 47782, 63710]
 # 散牌出现在前墩时各种牌面的权值，按最大牌算权值，前墩最小权值对应的牌为5
@@ -116,7 +110,8 @@ def GetWeight_Houdun(Cardlist=[]):
         number = temp_card[0] - 2
         weight = Duizi_Weight_3[number]
     else:
-        print("error")
+        print(Cardlist)
+        print("error in GetWeight_Houdun")
     return weight
 
 
@@ -169,7 +164,7 @@ def GetWeight_Zhongdun(Cardlist=[]):
         number = temp_card[0] - 2
         weight = Sanpai_Weight_2[number]
     else:
-        print("error")
+        print("error in GetWeight_Zhongdun")
     return weight
 
 
@@ -188,7 +183,7 @@ def Getweight_Qiandun(Cardlist=[]):
         number = temp_card[0] - 2
         weight = Santiao_Weight_1[number]
     else:
-        print("error")
+        print("error in GetWeight_Qiandun")
     return weight
 
 
@@ -388,18 +383,18 @@ def PostCards(data):
     # 接下来开始按权值最大原则墩牌
     Weight_All = 0  # 某一种出牌方式的权值
     Post_Cards = []  # 最后返回的列表
-    Weight_Qiandun = 0  # 前墩的权值
-    Weight_Zhongdun = 0  # 中墩的权值
-    Weight_Houdun = 0  # 后墩的权值
+    # Weight_Qiandun = 0  # 前墩的权值
+    # Weight_Zhongdun = 0  # 中墩的权值
+    # Weight_Houdun = 0  # 后墩的权值
     Cards_Qiandun = []  # 前墩的牌
     Cards_Zhongdun = []  # 中墩的牌
-    Cards_Houdun = []  # 后墩的牌
-    AllCardsCombination_AfterTakeHoudun = []  # 拿出后墩牌后剩下的牌所有对子以上的牌型
-    AllCardsCombination_AfterTakeZhongdun = []  # 拿出中墩牌后剩下的牌所有对子、三条的列表
-    Cardlist_AfterTakeHoudun = []  # 拿出后墩后剩下的牌
-    Cardlist_AfterTakeZhongdun = []  # 拿出中墩、后墩后剩下的牌
-    Cardlist_AfterTakeQiandun = []  # 拿出中墩、后墩、前墩后剩下的牌，因为拿出的中墩、后墩、前墩不是完整的
-    AllCardsCombination_FromAllcards = []  # 13张牌中所有对子及以上的牌型
+    # Cards_Houdun = []  # 后墩的牌
+    # AllCardsCombination_AfterTakeHoudun = []  # 拿出后墩牌后剩下的牌所有对子以上的牌型
+    # AllCardsCombination_AfterTakeZhongdun = []  # 拿出中墩牌后剩下的牌所有对子、三条的列表
+    # Cardlist_AfterTakeHoudun = []  # 拿出后墩后剩下的牌
+    # Cardlist_AfterTakeZhongdun = []  # 拿出中墩、后墩后剩下的牌
+    # Cardlist_AfterTakeQiandun = []  # 拿出中墩、后墩、前墩后剩下的牌，因为拿出的中墩、后墩、前墩不是完整的
+    # AllCardsCombination_FromAllcards = []  # 13张牌中所有对子及以上的牌型
     AllCardsCombination_FromAllcards = FindAllCardsCombination(temp_Cardlist)
     for item1 in AllCardsCombination_FromAllcards:  # 先拿出后墩
         Cardlist_AfterTakeHoudun = CalculateSub(temp_Cardlist, item1)
@@ -489,7 +484,6 @@ def PostCards(data):
                 Post_Cards.append(Cards_Houdun)
             Cards_Qiandun = []
             Cards_Zhongdun = []
-            Cards_Houdun = []
     return Post_Cards
 
 

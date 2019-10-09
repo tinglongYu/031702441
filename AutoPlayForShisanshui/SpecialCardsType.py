@@ -4,9 +4,6 @@ import PlayCards
 import CommonCardsType
 
 # 该模块中list_list和Cardlist的内容一样
-Sanshunzi = []  # 在调用IsSanshunzi()的时候，如果存在三顺子，就将所有的三顺子组合存入这个列表中
-SanTonghuashun = []  # 在调用IsSantonghuashun()的时候，如果存在三同花顺，就将所有的三同花顺组合存入这个列表中
-
 
 # 这个函数用于计算手牌中各种牌面的张数，接收一个手牌列表作为参数，返回一个记录各种牌面张数列表
 def GetList_count(Cardlist=[]):
@@ -62,8 +59,35 @@ def IsShierhuangzu(Cardlist=[]):
 
 
 def IsSantonghuashun(Cardlist=[]):
-    list_list = list.copy(Cardlist)
-    IsSanshunzi(list_list)
+    temp_Sanshunzi = []  # 存放在查找过程中可能存在的三顺子的一部分
+    list_list = list.copy(Cardlist)  # Cardlist的副本
+    Sanshunzi = []
+    SanTonghuashun = []
+    temp_list1 = []  # 存放去掉一个顺子后的手牌
+    temp_list2 = []  # 存放去掉两个顺子后的手牌
+    Shunzi1 = []  # 第一层循环中所有的顺子
+    Shunzi2 = []  # 第二层循环中所有的顺子
+    Shunzi1 = CommonCardsType.FindShunzi(list_list)
+    if (Shunzi1 != []):
+        for item1 in Shunzi1:
+            temp_list1 = PlayCards.CalculateSub(list_list, item1)
+            Shunzi2 = CommonCardsType.FindShunzi(temp_list1)
+            if (Shunzi2 != []):
+                for item2 in Shunzi2:
+                    temp_list2 = PlayCards.CalculateSub(temp_list1, item2)
+                    temp_list2.sort()
+                    if (temp_list2[0][0] + 1 == temp_list2[1][0]
+                            and temp_list2[1][0] + 1 == temp_list2[2][0]):
+                        temp_Sanshunzi.append(temp_list2)
+                        if (item1[4][0] >= item2[4][0]):
+                            temp_Sanshunzi.append(item2)
+                            temp_Sanshunzi.append(item1)
+                        else:
+                            temp_Sanshunzi.append(item1)
+                            temp_Sanshunzi.append(item2)
+                        if temp_Sanshunzi not in Sanshunzi:
+                            Sanshunzi.append(temp_Sanshunzi)
+                            temp_Sanshunzi = []
     if (Sanshunzi != []):
         for item in Sanshunzi:  # item是一个三顺子
             flag = 1  # flag=0时表示这一个三顺子不是三同花顺
@@ -205,6 +229,7 @@ def IsLiuduiban(Cardlist=[]):
 def IsSanshunzi(Cardlist=[]):
     temp_Sanshunzi = []  # 存放在查找过程中可能存在的三顺子的一部分
     list_list = list.copy(Cardlist)  # Cardlist的副本
+    Sanshunzi=[]
     temp_list1 = []  # 存放去掉一个顺子后的手牌
     temp_list2 = []  # 存放去掉两个顺子后的手牌
     Shunzi1 = []  # 第一层循环中所有的顺子

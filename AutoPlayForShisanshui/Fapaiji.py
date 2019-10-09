@@ -25,7 +25,7 @@ cards = ["*A", "$A", "&A", "#A",
          "*J", "$J", "&J", "#J",
          "*Q", "$Q", "&Q", "#Q",
          "*K", "$K", "&K", "#K", ]
-
+count=0
 while (True):
     numbers = random.sample(list, 13)
     str_temp = ""
@@ -36,3 +36,5 @@ while (True):
     print(json_data)
     output = PlayCards.PostCards(json_data)
     print(output)
+    count=count+1
+    print(count)

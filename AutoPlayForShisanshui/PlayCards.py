@@ -383,18 +383,18 @@ def PostCards(data):
     # 接下来开始按权值最大原则墩牌
     Weight_All = 0  # 某一种出牌方式的权值
     Post_Cards = []  # 最后返回的列表
-    # Weight_Qiandun = 0  # 前墩的权值
-    # Weight_Zhongdun = 0  # 中墩的权值
-    # Weight_Houdun = 0  # 后墩的权值
+    Weight_Qiandun = 0  # 前墩的权值
+    Weight_Zhongdun = 0  # 中墩的权值
+    Weight_Houdun = 0  # 后墩的权值
     Cards_Qiandun = []  # 前墩的牌
     Cards_Zhongdun = []  # 中墩的牌
-    # Cards_Houdun = []  # 后墩的牌
-    # AllCardsCombination_AfterTakeHoudun = []  # 拿出后墩牌后剩下的牌所有对子以上的牌型
-    # AllCardsCombination_AfterTakeZhongdun = []  # 拿出中墩牌后剩下的牌所有对子、三条的列表
-    # Cardlist_AfterTakeHoudun = []  # 拿出后墩后剩下的牌
-    # Cardlist_AfterTakeZhongdun = []  # 拿出中墩、后墩后剩下的牌
-    # Cardlist_AfterTakeQiandun = []  # 拿出中墩、后墩、前墩后剩下的牌，因为拿出的中墩、后墩、前墩不是完整的
-    # AllCardsCombination_FromAllcards = []  # 13张牌中所有对子及以上的牌型
+    Cards_Houdun = []  # 后墩的牌
+    AllCardsCombination_AfterTakeHoudun = []  # 拿出后墩牌后剩下的牌所有对子以上的牌型
+    AllCardsCombination_AfterTakeZhongdun = []  # 拿出中墩牌后剩下的牌所有对子、三条的列表
+    Cardlist_AfterTakeHoudun = []  # 拿出后墩后剩下的牌
+    Cardlist_AfterTakeZhongdun = []  # 拿出中墩、后墩后剩下的牌
+    Cardlist_AfterTakeQiandun = []  # 拿出中墩、后墩、前墩后剩下的牌，因为拿出的中墩、后墩、前墩不是完整的
+    AllCardsCombination_FromAllcards = []  # 13张牌中所有对子及以上的牌型
     AllCardsCombination_FromAllcards = FindAllCardsCombination(temp_Cardlist)
     for item1 in AllCardsCombination_FromAllcards:  # 先拿出后墩
         Cardlist_AfterTakeHoudun = CalculateSub(temp_Cardlist, item1)
@@ -407,9 +407,9 @@ def PostCards(data):
                 if (AllCardsCombination_AfterTakeZhongdun != []):
                     for item3 in AllCardsCombination_AfterTakeZhongdun:
                         Cardlist_AfterTakeQiandun = CalculateSub(Cardlist_AfterTakeZhongdun, item3)
-                        Cards_Qiandun = item3
-                        Cards_Zhongdun = item2
-                        Cards_Houdun = item1
+                        Cards_Qiandun = list.copy(item3)
+                        Cards_Zhongdun = list.copy(item2)
+                        Cards_Houdun = list.copy(item1)
                         Weight_Qiandun = Getweight_Qiandun(Cards_Qiandun)
                         Weight_Zhongdun = GetWeight_Zhongdun(Cards_Zhongdun)
                         Weight_Houdun = GetWeight_Houdun(Cards_Houdun)
@@ -434,8 +434,8 @@ def PostCards(data):
                 else:
                     Cards_Qiandun.append(FindBiggestCard(Cardlist_AfterTakeZhongdun))
                     Cardlist_AfterTakeQiandun = CalculateSub(Cardlist_AfterTakeZhongdun, Cards_Qiandun)
-                    Cards_Houdun = item1
-                    Cards_Zhongdun = item2
+                    Cards_Houdun = list.copy(item1)
+                    Cards_Zhongdun = list.copy(item2)
                     Weight_Houdun = GetWeight_Houdun(Cards_Houdun)
                     Weight_Zhongdun = GetWeight_Zhongdun(Cards_Zhongdun)
                     Weight_Qiandun = Getweight_Qiandun(Cards_Qiandun)
@@ -465,7 +465,7 @@ def PostCards(data):
             Cards_Qiandun.append(FindBiggestCard(Cardlist_AfterTakeZhongdun))
             Weight_Qiandun = Getweight_Qiandun(Cards_Qiandun)
             Cardlist_AfterTakeQiandun = CalculateSub(Cardlist_AfterTakeZhongdun, Cards_Qiandun)
-            Cards_Houdun = item1
+            Cards_Houdun = list.copy(item1)
             Weight_Houdun = GetWeight_Houdun(Cards_Houdun)
             if (Weight_Qiandun + Weight_Zhongdun + Weight_Houdun > Weight_All
                     and Compare(Cards_Qiandun, Cards_Zhongdun) and Compare(Cards_Zhongdun, Cards_Houdun)):

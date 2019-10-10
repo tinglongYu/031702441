@@ -7,8 +7,6 @@ import flask
 
 server = flask.Flask(__name__)  # __name__代表当前的python文件。把当前的python文件当做一个服务启动
 
-json_data = {'status': 0, 'data': {'id': 1000, 'card': '#3 $2 *5 #2 $4 $8 #K &K *A $3 &J #A *8'}}
-
 Sanpai_Weight_1 = [0, 0, 0, 0, 0, 289, 1158, 2895, 5791, 10135, 16217, 24325, 34751, 47782, 63710]
 # 散牌出现在前墩时各种牌面的权值，按最大牌算权值，前墩最小权值对应的牌为5
 Sanpai_Weight_2 = [0, 0, 0, 0, 0, 0, 0, 0, 156, 706, 2040, 4748, 9654, 17857, 30769]
@@ -208,8 +206,7 @@ def FindBiggestCard(Cardslist=[]):
     return temp_card
 
 
-def GetCardlist(json_data):
-    str_data = json_data['data']['card']  # 获取原始卡牌字符串
+def GetCardlist(str_data):
     list_list = []  # 每张牌以list的形式存储在这个list中，例如梅花三被存储为[3，'*']
     # 将原始数据即str_data中所有的牌提取出来以字符串形式存储在这个列表中，例如['*2','$6',......]
     list_str = str_data.split(' ')
@@ -334,9 +331,10 @@ def Compare(Cardlist1=[], Cardlist2=[]):
 # 发牌函数，根据权值最大原则给出三墩牌，形式为[[前墩]，[中墩]，[后墩]]
 # 如果是特殊牌型，直接将接收的列表返回
 @server.route('/PostCards', methods=['post'])  # 第一个参数就是路径,第二个参数支持的请求方式，不写的话默认是get
-def PostCards(data):
-    Cardlist = GetCardlist(data)
+def PostCards(str_data):
+    Cardlist = GetCardlist(str_data)
     temp_Cardlist = list.copy(Cardlist)
+    '''
     # 以下是判断是否出现特殊牌型，如果是，直接返回原列表
     if (SpecialCardsType.IsZhizhunqinglong(temp_Cardlist)):
         print("至尊清龙")
@@ -379,7 +377,7 @@ def PostCards(data):
         return temp_Cardlist
     elif (SpecialCardsType.IsSantonghua(temp_Cardlist)):
         print("三同花")
-        return temp_Cardlist
+        return temp_Cardlist'''
     # 接下来开始按权值最大原则墩牌
     Weight_All = 0  # 某一种出牌方式的权值
     Post_Cards = []  # 最后返回的列表
@@ -487,6 +485,3 @@ def PostCards(data):
     return Post_Cards
 
 
-if __name__ == '__main__':
-    cards = PostCards(json_data)
-    print(cards)

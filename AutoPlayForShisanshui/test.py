@@ -233,10 +233,10 @@ for i in range(6, 15):
     count += 4
 print(count)
 print(Tonghuashun_Weight_2)
-
+'''
 # 接口测试
 data = {
-    "card": "*2 *3 *4 *5 *6 *7 *8 *9 *10 *J *Q *K *A"
+    "card": "$10 &J $2 $6 &8 &3 *K $A #J #3 $Q &9 #A"
 }
 res = requests.post('http://172.26.76.171:7777/getcards', data)
 print(res.json())
@@ -265,5 +265,7 @@ while (True):
     data = {
         "card": str_data
     }
+    json.dumps(data)
     res = requests.post('http://172.26.76.171:7777/getcards', data)
     print(res.json())
+    '''
